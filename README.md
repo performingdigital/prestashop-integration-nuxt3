@@ -28,7 +28,7 @@ pnpm run dev
 - [x] bootstrap
 - [ ] fetchOrders
 - [ ] getAvailableCountries
-- [ ] getCartItems
+- [x] getCartItems
 - [x] getCategoryProducts
 - [ ] getPaymentMethods
 - [ ] getProduct
@@ -44,7 +44,7 @@ pnpm run dev
 - [ ] removeFromCart
 - [ ] setAddress
 - [ ] setShippingMethod
-- [ ] updateCart
+- [x] updateCart
 - [ ] updateCustomer
 - [ ] updateOneAddress
 

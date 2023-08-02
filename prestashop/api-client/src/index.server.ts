@@ -36,7 +36,7 @@ const onCreate = (
     },
   });
 
-  client.interceptors.response.use((res) => {
+  client.interceptors.response.use((res: AxiosResponse) => {
     if (res.headers['set-cookie']) {
       const cookieObject = cookieParser(res.headers);
       config.state.setPsCookieKey(cookieObject.vsfPsKeyCookie);
@@ -83,7 +83,8 @@ const tokenExtension: ApiClientExtension = {
             }
             res.cookie(psCookieKey, JSON.stringify(id));
           },
-          getPsCookieValue: () => JSON.parse(req.cookies[psCookieValue] ?? 'null'),
+          getPsCookieValue: () =>
+            JSON.parse(req.cookies[psCookieValue] ?? 'null'),
           setPsCookieValue: (id) => {
             if (!id) {
               delete req.cookies[psCookieValue];
@@ -91,7 +92,8 @@ const tokenExtension: ApiClientExtension = {
             }
             res.cookie(psCookieValue, JSON.stringify(id));
           },
-          getCurrency: () => JSON.parse(req.cookies[currencyCookieName] ?? 'null') ?? 'EUR',
+          getCurrency: () =>
+            JSON.parse(req.cookies[currencyCookieName] ?? 'null') ?? 'EUR',
           setCurrency: (id) => {
             if (!id) {
               delete req.cookies[currencyCookieName];
@@ -99,7 +101,8 @@ const tokenExtension: ApiClientExtension = {
             }
             res.cookie(currencyCookieName, JSON.stringify(id));
           },
-          getLocale: () => JSON.parse(req.cookies[localeCookieName] ?? 'null') ?? 'en',
+          getLocale: () =>
+            JSON.parse(req.cookies[localeCookieName] ?? 'null') ?? 'en',
           setLocale: (id) => {
             if (!id) {
               delete req.cookies[localeCookieName];

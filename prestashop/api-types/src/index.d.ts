@@ -300,3 +300,15 @@ export interface SearchParams {
     page: string
   }
 }
+
+/**
+ * GetProduct method types
+ */
+export type UpdateCartResponse = PrestashopResponse<{
+  
+}>
+export type UpdateCartRequest = {
+  id_product: string|number,
+  id_product_attribute: string|number,
+  quantity?: string|number,
+}
