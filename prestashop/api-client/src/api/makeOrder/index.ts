@@ -1,16 +1,20 @@
-import { cookieParser } from '../../helpers/cookieParser';
+import { Context } from '../../types';
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export default async function makeOrder(context, params) {
-  const { methodName } = params;
-  const url = new URL(context.config.api.url + params.lang + `/rest/${methodName}`);
-  url.searchParams.set('iso_currency', params.currency);
-  const { data, headers } = await context.client.get(url.href, {
-    headers: {
-      Cookie: params.psCookieKey + '=' + params.psCookieValue + ';'
+import {
+  TODO as OrderRequest,
+  TODO as OrderResponse,
+} from '@vue-storefront/prestashop-types';
+
+export default async function makeOrder(
+  context: Context,
+  params: OrderRequest
+): Promise<OrderResponse> {
+  const { data } = await context.client.get<OrderResponse>(
+    `/rest/${params.methodName}`,
+    {
+      params,
     }
-  }
   );
-  const cookieObject = cookieParser(headers);
-  return {data, cookieObject};
+
+  return data;
 }

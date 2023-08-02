@@ -39,7 +39,7 @@ pnpm run dev
 - [ ] loadCustomer
 - [x] login
 - [x] logout
-- [ ] makeOrder
+- [x] makeOrder
 - [x] register
 - [ ] removeAddress
 - [ ] removeFromCart
