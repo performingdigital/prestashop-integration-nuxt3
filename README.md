@@ -30,6 +30,7 @@ pnpm run dev
 - [ ] getAvailableCountries
 - [x] getCartItems
 - [x] getCategoryProducts
+- [x] productSearch
 - [ ] getPaymentMethods
 - [ ] getProduct
 - [ ] getReview
