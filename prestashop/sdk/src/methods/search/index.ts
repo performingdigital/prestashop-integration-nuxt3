@@ -6,11 +6,8 @@ import {
 } from '@vue-storefront/prestashop-types';
 
 export async function search(props: SearchRequest) {
-  const { data } = await client.post<SearchResponse>('getCategoryProducts', {
-    input: {
-      term: props.query,
-      type: 'instant-search',
-    },
+  const { data } = await client.post<SearchResponse>('productSearch', {
+    query: props.query,
   });
 
   if (!data.success) {

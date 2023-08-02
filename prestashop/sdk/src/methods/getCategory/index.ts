@@ -6,13 +6,11 @@ import {
 
 export async function getCategory(props: GetCategoryRequest) {
   const { data } = await client.post<GetCategoryResponse>('getCategoryProducts', {
-    input: {
-      ...props
-    },
+    ...props
   });
 
   if (! data.success) {
-    return null
+    return data
   }
 
   return data.psdata;

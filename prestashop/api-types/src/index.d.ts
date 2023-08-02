@@ -83,10 +83,12 @@ export type GetCategoryResponse = PrestashopResponse<string | {
 }>
 
 export interface GetCategoryRequest {
-  firstName: string
-  lastName: string
-  email: string
-  password: string
+  id?: string|number
+  slug?: string|number
+  page: string|number
+  with_all_images: boolean,
+  image_size: string
+  with_category_tree: boolean
 }
 
 /**
@@ -287,18 +289,6 @@ export interface Cover {
 }
 export interface SearchRequest {
   query: string
-}
-
-export interface SearchParams {
-  input: {
-    term: string
-    type: 'instant-search'|string,
-    categorySlug: string
-    filters: {
-      [key: string]: string[]
-    },
-    page: string
-  }
 }
 
 /**
