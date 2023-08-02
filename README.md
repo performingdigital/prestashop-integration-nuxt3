@@ -1,5 +1,8 @@
 # Experimental Nuxt 3 Prestashop Integration
 
+This project is based on the Nuxt 2 integration for VSF and you can find it [here](https://github.com/vuestorefront-community/prestashop/)
+
+
 ## Requirements:
 
 - NodeJS v16 or later,
