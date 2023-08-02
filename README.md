@@ -14,7 +14,7 @@ This project is based on the Nuxt 2 integration for VSF and you can find it [her
 pnpm install
 ```
 
-5. Run the project,
+Run the project,
 
 ```bash
 pnpm run dev
