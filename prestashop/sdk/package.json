@@ -1,0 +1,34 @@
+{
+  "name": "@vue-storefront/prestashop-sdk",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "lib/index.cjs.js",
+  "module": "lib/index.es.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "build": "rimraf lib && rollup -c --bundleConfigAsCjs",
+    "dev": "rimraf lib && rollup -c -w --bundleConfigAsCjs",
+    "lint": "eslint . --ext .ts",
+    "test": "yarn test:unit && yarn test:integration",
+    "test:unit": "jest ./unit -c ./jest.config.unit.js",
+    "test:integration": "jest ./integration -c ./jest.config.integration.js --runInBand",
+    "test:integration:init": "rm -rf __tests__/integration/__nock-fixtures__ && jest ./integration -c ./jest.config.integration.js --runInBand",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage --passWithNoTests",
+    "prepublish": "yarn build"
+  },
+  "dependencies": {
+    "@vue-storefront/prestashop-types": "workspace:^",
+    "axios": "^0.27.2"
+  },
+  "devDependencies": {
+    "@vue-storefront/prestashop-api": "0.1.0",
+    "@vue-storefront/sdk": "1.0.1",
+    "msw": "^0.47.3",
+    "nock": "^13.2.9",
+    "rollup-plugin-typescript2": "^0.34.1"
+  }
+}

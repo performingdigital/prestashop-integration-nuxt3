@@ -1,0 +1,14 @@
+{
+  "useWorkspaces": true,
+  "npmClient": "pnpm",
+  "command": {
+    "publish": {
+      "message": "chore(release): %s",
+      "conventionalCommits": true
+    }
+  },
+  "packages": [
+    "prestashop/*"
+  ],
+  "version": "1.0.0"
+}
