@@ -18,6 +18,7 @@
 </template>
 
 <script lang="ts" setup>
+import { SfInput } from '@storefront-ui/vue';
 import { sdk } from '~/sdk.config';
 
 const res = useState<object|string>('waiting to call...');
