@@ -20,16 +20,17 @@
 <script lang="ts" setup>
 import { SfInput } from '@storefront-ui/vue';
 import { sdk } from '~/sdk.config';
+import { useStorage } from '@vueuse/core'
 
 const res = useState<object|string>('waiting to call...');
 
-const form = reactive({
+const form = useStorage('login', {
   username: '',
   password: '',
 })
 
 async function callEndpoint() {
-  res.value = await sdk.prestashop.login(form);
+  res.value = await sdk.prestashop.login(form.value);
 }
 
 function reset() {
