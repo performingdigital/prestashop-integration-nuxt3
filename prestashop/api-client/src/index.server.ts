@@ -1,9 +1,8 @@
 import { Request, Response } from 'express';
 import axios, { AxiosResponse } from 'axios';
-import { ApiClientExtension, apiClientFactory} from '@vue-storefront/middleware';
+import { ApiClientExtension, apiClientFactory } from '@vue-storefront/middleware';
 import { defaultConfig, MiddlewareConfig } from './index';
 import * as apiEndpoints from './api';
-import { Service } from 'axios-middleware';
 import { cookieParser } from './helpers/cookieParser';
 
 const buildConfig = (settings: MiddlewareConfig) =>
@@ -33,24 +32,18 @@ const onCreate = (
       iso_currency: config.state.getCurrency(),
     },
     headers: {
-      cookieObject: {
-        [config.state.getPsCookieKey()]: config.state.getPsCookieValue(),
-      },
+      Cookie: config.state.getPsCookieKey() + '=' + config.state.getPsCookieValue(),
     },
   });
 
-  new Service(axios).register({
-    onResponse(response: AxiosResponse) {
-      try {
-        if (response.headers['set-cookie']) {
-          const cookieObject = cookieParser(response.headers);
-          config.state.setPsCookieKey(cookieObject.vsfPsKeyCookie);
-          config.state.setPsCookieValue(cookieObject.vsfPsValCookie);
-        }
-      } catch {}
-      
-      return response;
-    },
+  client.interceptors.response.use((res) => {
+    if (res.headers['set-cookie']) {
+      const cookieObject = cookieParser(res.headers);
+      config.state.setPsCookieKey(cookieObject.vsfPsKeyCookie);
+      config.state.setPsCookieValue(cookieObject.vsfPsValCookie);
+    }
+
+    return res;
   });
 
   return {
@@ -82,7 +75,7 @@ const tokenExtension: ApiClientExtension = {
       return {
         ...configuration,
         state: {
-          getPsCookieKey: () => req.cookies[psCookieKey],
+          getPsCookieKey: () => JSON.parse(req.cookies[psCookieKey] ?? 'null'),
           setPsCookieKey: (id) => {
             if (!id) {
               delete req.cookies[psCookieKey];
@@ -90,7 +83,7 @@ const tokenExtension: ApiClientExtension = {
             }
             res.cookie(psCookieKey, JSON.stringify(id));
           },
-          getPsCookieValue: () => req.cookies[psCookieValue],
+          getPsCookieValue: () => JSON.parse(req.cookies[psCookieValue] ?? 'null'),
           setPsCookieValue: (id) => {
             if (!id) {
               delete req.cookies[psCookieValue];
@@ -98,7 +91,7 @@ const tokenExtension: ApiClientExtension = {
             }
             res.cookie(psCookieValue, JSON.stringify(id));
           },
-          getCurrency: () => req.cookies[currencyCookieName] ?? 'EUR',
+          getCurrency: () => JSON.parse(req.cookies[currencyCookieName] ?? 'null') ?? 'EUR',
           setCurrency: (id) => {
             if (!id) {
               delete req.cookies[currencyCookieName];
@@ -106,7 +99,7 @@ const tokenExtension: ApiClientExtension = {
             }
             res.cookie(currencyCookieName, JSON.stringify(id));
           },
-          getLocale: () => req.cookies[localeCookieName] ?? 'en',
+          getLocale: () => JSON.parse(req.cookies[localeCookieName] ?? 'null') ?? 'en',
           setLocale: (id) => {
             if (!id) {
               delete req.cookies[localeCookieName];
