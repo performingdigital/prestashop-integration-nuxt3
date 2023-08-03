@@ -48,6 +48,9 @@ pnpm run dev
 - [x] updateCart
 - [ ] updateCustomer
 - [ ] updateOneAddress
+- [x] resetPasswordEmail
+- [x] resetPasswordCheck
+- [x] resetPasswordEnter
 
 ## Repository structure
 
