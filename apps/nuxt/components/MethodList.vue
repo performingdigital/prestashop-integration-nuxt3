@@ -35,6 +35,7 @@
         class="hidden md:flex flex-col border-t mt-2 border-primary-600"
         v-for="method in menuRoutes"
         :key="method.name"
+        @click="closeDrawer"
       >
         <NuxtLink
           :href="method.path"
@@ -66,7 +67,7 @@ type MethodType = {
 const router = useRouter();
 const routes = router.getRoutes();
 const menuRoutes = useState<{ path: string, name: string }[]>(() => []);
-
+const closeDrawer = inject('closeDrawer');
 //add routes to accordionItems
 routes.map((route) => {
   if (route.path.includes('/methods') && !inRouteArray(route.path)) {

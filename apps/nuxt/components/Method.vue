@@ -17,9 +17,9 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="w-full grid grid-cols-[200px,1fr] gap-2">
-    <div class="p-2">
-      <h1 class="typography-headline-2 font-bold mt-2 mb-4 text-green-500">
+  <div class="w-full grid grid-cols-[300px,1fr] gap-2">
+    <div class="p-4">
+      <h1 class="text-lg font-bold mt-2 mb-4 text-green-500">
         {{ title }}
       </h1>
       <slot></slot>

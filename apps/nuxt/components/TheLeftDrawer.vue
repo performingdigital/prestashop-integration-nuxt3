@@ -43,4 +43,8 @@ const open = ref(false);
 const drawerRef = ref();
 
 useTrapFocus(drawerRef, { activeState: open });
+
+provide('closeDrawer', () => {
+  open.value = false;
+});
 </script>
