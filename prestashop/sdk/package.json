@@ -1,7 +1,6 @@
 {
   "name": "@vue-storefront/prestashop-sdk",
   "version": "0.1.0",
-  "type": "module",
   "main": "lib/index.cjs.js",
   "module": "lib/index.es.js",
   "types": "lib/index.d.ts",
@@ -9,8 +8,8 @@
     "lib"
   ],
   "scripts": {
-    "build": "rimraf lib && rollup -c --bundleConfigAsCjs",
-    "dev": "rimraf lib && rollup -c -w --bundleConfigAsCjs",
+    "build": "rimraf lib && rollup -c",
+    "dev": "rimraf lib && rollup -c -w",
     "lint": "eslint . --ext .ts",
     "test": "yarn test:unit && yarn test:integration",
     "test:unit": "jest ./unit -c ./jest.config.unit.js",

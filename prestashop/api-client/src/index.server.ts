@@ -75,7 +75,13 @@ const tokenExtension: ApiClientExtension = {
       return {
         ...configuration,
         state: {
-          getPsCookieKey: () => JSON.parse(req.cookies[psCookieKey] ?? 'null'),
+          getPsCookieKey: () => {
+            try {
+              return JSON.parse(req.cookies[psCookieKey] ?? 'null');
+            } catch {
+              return null;
+            }
+          },
           setPsCookieKey: (id) => {
             if (!id) {
               delete req.cookies[psCookieKey];
@@ -83,8 +89,13 @@ const tokenExtension: ApiClientExtension = {
             }
             res.cookie(psCookieKey, JSON.stringify(id));
           },
-          getPsCookieValue: () =>
-            JSON.parse(req.cookies[psCookieValue] ?? 'null'),
+          getPsCookieValue: () => {
+            try {
+              return JSON.parse(req.cookies[psCookieValue] ?? 'null');
+            } catch {
+              return null;
+            }
+          },
           setPsCookieValue: (id) => {
             if (!id) {
               delete req.cookies[psCookieValue];
@@ -92,8 +103,13 @@ const tokenExtension: ApiClientExtension = {
             }
             res.cookie(psCookieValue, JSON.stringify(id));
           },
-          getCurrency: () =>
-            JSON.parse(req.cookies[currencyCookieName] ?? 'null') ?? 'EUR',
+          getCurrency: () => {
+            try {
+              return JSON.parse(req.cookies[currencyCookieName] ?? 'null') ?? 'EUR';
+            } catch {
+              return null;
+            }
+          },
           setCurrency: (id) => {
             if (!id) {
               delete req.cookies[currencyCookieName];
@@ -101,8 +117,13 @@ const tokenExtension: ApiClientExtension = {
             }
             res.cookie(currencyCookieName, JSON.stringify(id));
           },
-          getLocale: () =>
-            JSON.parse(req.cookies[localeCookieName] ?? 'null') ?? 'en',
+          getLocale: () => {
+            try {
+              return JSON.parse(req.cookies[localeCookieName] ?? 'null') ?? 'en';
+            } catch {
+              return null;
+            }
+          },
           setLocale: (id) => {
             if (!id) {
               delete req.cookies[localeCookieName];
