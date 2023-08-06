@@ -1,12 +1,15 @@
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export default async function loadCustomer(context, params) {
-  const url = new URL(context.config.api.url + params.lang + '/rest/accountInfo');
-  url.searchParams.set('iso_currency', params.currency);
-  const { data } = await context.client.get(url.href, {
-    headers: {
-      Cookie: params.key + '=' + params.value + ';'
-    }
-  });
+import { Context, PrestashopResponse } from '../../types';
+
+export type CustomerRequest = {
+  // empty
+};
+
+export type CustomerResponse = PrestashopResponse<{
+  // TODO: add types
+}>;
+
+export async function fetchCustomers(context: Context, params: CustomerRequest) {
+  const { data } = await context.client.get<CustomerResponse>('/rest/accountInfo');
 
   return data;
 }

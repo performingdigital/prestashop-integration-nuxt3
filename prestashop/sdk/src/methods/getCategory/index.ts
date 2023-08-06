@@ -1,8 +1,9 @@
 import { client } from '../../client';
+
 import {
-  GetCategoryRequest,
-  GetCategoryResponse,
-} from '@vue-storefront/prestashop-types';
+  TODO as GetCategoryRequest,
+  TODO as GetCategoryResponse,
+} from '@vue-storefront/prestashop-api';
 
 export async function getCategory(props: GetCategoryRequest) {
   const { data } = await client.post<GetCategoryResponse>('getCategoryProducts', {

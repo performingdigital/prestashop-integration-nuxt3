@@ -1,20 +1,17 @@
-import { Context } from '../../types';
+import { Context, PrestashopResponse } from '../../types';
 
-import {
-  TODO as OrderRequest,
-  TODO as OrderResponse,
-} from '@vue-storefront/prestashop-types';
+export type AddOrderRequest = {
+  methodName: string;
+};
 
-export default async function makeOrder(
-  context: Context,
-  params: OrderRequest
-): Promise<OrderResponse> {
-  const { data } = await context.client.get<OrderResponse>(
-    `/rest/${params.methodName}`,
-    {
-      params,
-    }
-  );
+export type AddOrderResponse = PrestashopResponse<{
+  // TODO: add types
+}>;
+
+export async function makeOrder(context: Context, params: AddOrderRequest): Promise<AddOrderResponse> {
+  const { data } = await context.client.get<AddOrderResponse>(`/rest/${params.methodName}`, {
+    params,
+  });
 
   return data;
 }

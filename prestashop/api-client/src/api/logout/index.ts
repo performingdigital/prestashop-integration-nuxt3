@@ -1,11 +1,14 @@
-import { Context } from '../../types';
+import { Context, PrestashopResponse } from '../../types';
 
-import {
-  TODO as LogoutResponse,
-  TODO as LogoutRequest,
-} from '@vue-storefront/prestashop-types'; 
+export type LogoutRequest = {
+  // empty
+};
 
-export default async function logout(context: Context, params: LogoutRequest) {
+export type LogoutResponse = PrestashopResponse<{
+  // TODO: add types
+}>;
+
+export async function logout(context: Context, params: LogoutRequest) {
   const { data } = await context.client.get<LogoutResponse>('/rest/logout', {
     params,
   });

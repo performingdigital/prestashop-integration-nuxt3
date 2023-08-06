@@ -1,16 +1,17 @@
+import { Context, PrestashopResponse } from '../../types';
 
-import { cookieParser } from '../../helpers/cookieParser';
+export type OrderRequest = {
+  updatedUserData: object;
+};
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export default async function updateCustomer(context, params) {
-  const { updatedUserData } = params;
-  const url = new URL(context.config.api.url + params.lang + '/rest/accountedit');
-  url.searchParams.set('iso_currency', params.currency);
-  const { data, headers } = await context.client.post(url.href, updatedUserData, {
-    headers: {
-      Cookie: params.psCookieKey + '=' + params.psCookieValue + ';'
-    }
+export type OrderResponse = PrestashopResponse<{
+  //TODO: add types
+}>;
+
+export async function updateCustomer(context: Context, params: OrderRequest) {
+  const { data } = await context.client.post<OrderResponse>('/rest/accountedit', {
+    ...params.updatedUserData,
   });
-  const cookieObject = cookieParser(headers);
-  return {data, cookieObject};
+
+  return data;
 }

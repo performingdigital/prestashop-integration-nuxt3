@@ -1,15 +1,20 @@
-import { Context } from '../../types';
-import { SearchRequest } from '@vue-storefront/prestashop-types';
+import { Context, PrestashopResponse } from '../../types';
+
+export type SearchRequest = {
+  s: string;
+  resultsPerPage: number;
+};
+
+export type SearchResponse = PrestashopResponse<{
+  products: any[];
+}>;
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export default async function productSearch(
-  context: Context,
-  params: SearchRequest
-) {
-  const { data } = await context.client.get('/rest/productSearch', {
+export async function productSearch(context: Context, params: SearchRequest) {
+  const { data } = await context.client.get<SearchResponse>('/rest/productSearch', {
     params: {
-      s: params.query,
-      resultsPerPage: 10,
+      s: params.s,
+      resultsPerPage: params.resultsPerPage,
     },
   });
   return data;

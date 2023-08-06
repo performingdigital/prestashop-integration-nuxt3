@@ -1,15 +1,15 @@
+import { Context, PrestashopResponse } from '../../types';
 
-import { cookieParser } from '../../helpers/cookieParser';
+export type AddressRequest = {
+  // empty
+};
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export default async function loadAddresses(context, params) {
-  const url = new URL(context.config.api.url + params.lang + '/rest/alladdresses');
-  url.searchParams.set('iso_currency', params.currency);
-  const { data, headers } = await context.client.get(url.href, {
-    headers: {
-      Cookie: params.psCookieKey + '=' + params.psCookieValue + ';'
-    }
-  });
-  const cookieObject = cookieParser(headers);
-  return {data, cookieObject};
+export type AddressResponse = PrestashopResponse<{
+  // TODO: add types
+}>;
+
+export async function loadAddresses(context: Context, params: AddressRequest) {
+  const { data } = await context.client.get<AddressResponse>('/rest/alladdresses');
+
+  return data;
 }

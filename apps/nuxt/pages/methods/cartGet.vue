@@ -16,7 +16,7 @@ import { sdk } from '~/sdk.config';
 const res = useState<object | string>('waiting to call...');
 
 async function callEndpoint() {
-  res.value = await sdk.prestashop.getCartItems();
+  res.value = await sdk.prestashop.cartGet();
 }
 
 function reset() {

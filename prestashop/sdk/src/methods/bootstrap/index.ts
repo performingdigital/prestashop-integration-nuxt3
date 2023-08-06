@@ -1,9 +1,10 @@
 import { client } from '../../client';
 import { MethodOptions } from '../../types';
+
 import {
   BootstrapRequest,
   BootstrapResponse,
-} from '@vue-storefront/prestashop-types';
+} from '@vue-storefront/prestashop-api';
 
 export async function bootstrap(
   props: BootstrapRequest,
@@ -11,5 +12,5 @@ export async function bootstrap(
 ) {
   const { data } = await client.post<BootstrapResponse>('bootstrap', props);
 
-  return data.psdata;
+  return data;
 }

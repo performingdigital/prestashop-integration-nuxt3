@@ -20,11 +20,10 @@
     "prepublish": "yarn build"
   },
   "dependencies": {
-    "@vue-storefront/prestashop-types": "workspace:^",
+    "@vue-storefront/prestashop-api": "workspace:^",
     "axios": "^0.27.2"
   },
   "devDependencies": {
-    "@vue-storefront/prestashop-api": "0.1.0",
     "@vue-storefront/sdk": "1.0.1",
     "msw": "^0.47.3",
     "nock": "^13.2.9",

@@ -1,10 +1,18 @@
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export default async function getReview(context, params) {
-  const url = new URL(context.config.api.url + params.lang + '/rest/listcomments');
-  url.searchParams.set('iso_currency', params.currency);
-  params.productId && url.searchParams.set('id_product', params.productId);
-  params.page && url.searchParams.set('page', params.page);
+import { Context, PrestashopResponse } from '../../types';
 
-  const { data } = await context.client.get(url.href);
+export type ReviewRequest = {
+  id_product: number | string;
+  page: number | string;
+};
+
+export type ReviewResponse = PrestashopResponse<{
+  // TODO: add types
+}>;
+
+export async function getReview(context: Context, params: ReviewRequest) {
+  const { data } = await context.client.get<ReviewResponse>('/rest/listcomments', {
+    params,
+  });
+
   return data;
 }

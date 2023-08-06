@@ -1,24 +1,17 @@
+import { Context, PrestashopResponse } from '../../types';
 
-import { cookieParser } from '../../helpers/cookieParser';
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export default async function fetchOrders(context, params) {
-  const {psCookieKey, psCookieValue, orderId} = params;
-  const url = new URL(context.config.api.url + params.lang + '/rest/orderhistory');
-  url.searchParams.set('iso_currency', params.currency);
-  if (orderId) {
-    url.searchParams.set('id_order', orderId);
-  }
+export type OrderRequest = {
+  id_order?: number | string;
+};
 
-  if (psCookieKey && psCookieValue) {
-    // It's not possible to get cart items without cookies (or any operation on cart)
-    const { data, headers } = await context.client.get(url.href, {
-      headers: {
-        Cookie: psCookieKey + '=' + psCookieValue + ';'
-      }
-    });
+export type OrderResponse = PrestashopResponse<{}>;
 
-    const cookieObject = cookieParser(headers);
+export async function fetchOrders(context: Context, params: OrderRequest) {
+  const { data } = await context.client.get<OrderResponse>('/rest/orderhistory', {
+    params: {
+      id_order: params.id_order,
+    },
+  });
 
-    return {data, cookieObject};
-  } else return null;
+  return data;
 }

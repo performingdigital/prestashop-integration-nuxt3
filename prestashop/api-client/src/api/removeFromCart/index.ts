@@ -1,7 +1,7 @@
 import {cookieParser} from '../../helpers/cookieParser';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export default async function removeFromCart(context, params) {
+export async function removeFromCart(context, params) {
   const {psCookieKey, psCookieValue, product} = params;
   const url = new URL(context.config.api.url + params.lang + '/rest/cart');
   url.searchParams.set('iso_currency', params.currency);

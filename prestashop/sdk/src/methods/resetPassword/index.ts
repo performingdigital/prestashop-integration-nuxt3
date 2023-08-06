@@ -1,15 +1,17 @@
 import { client } from '../../client';
 
 import {
-  TODO as ResetPasswordEmailRequest,
-  TODO as ResetPasswordEmailResponse,
-  TODO as ResetPasswordTokenRequest,
-  TODO as ResetPasswordCheckResponse,
-} from '@vue-storefront/prestashop-types';
+  ResetPasswordEmailRequest,
+  ResetPasswordEmailResponse,
+  ResetPasswordCheckRequest,
+  ResetPasswordCheckResponse,
+  ResetPasswordEnterRequest,
+  ResetPasswordEnterResponse,
+} from '@vue-storefront/prestashop-api';
 
 export async function resetPasswordEmail(props: ResetPasswordEmailRequest) {
   const { data } = await client.post<ResetPasswordEmailResponse>('resetPasswordEmail', {
-    username: props.username,
+    email: props.email,
   });
 
   if (data.code != 200) {
@@ -19,10 +21,9 @@ export async function resetPasswordEmail(props: ResetPasswordEmailRequest) {
   return data;
 }
 
-export async function resetPasswordCheck(props: ResetPasswordTokenRequest) {
+export async function resetPasswordCheck(props: ResetPasswordCheckRequest) {
   const { data } = await client.post<ResetPasswordCheckResponse>('resetPasswordCheck', {
-    username: props.username,
-    code: props.code,
+    ...props
   });
 
   if (data.code != 200) {
@@ -32,11 +33,9 @@ export async function resetPasswordCheck(props: ResetPasswordTokenRequest) {
   return data;
 }
 
-export async function resetPasswordEnter(props: ResetPasswordTokenRequest) {
-  const { data } = await client.post<ResetPasswordCheckResponse>('resetPasswordEnter', {
-    username: props.username,
-    code: props.code,
-    password: props.password,
+export async function resetPasswordEnter(props: ResetPasswordEnterRequest) {
+  const { data } = await client.post<ResetPasswordEnterResponse>('resetPasswordEnter', {
+    ...props
   });
 
   if (data.code != 200) {

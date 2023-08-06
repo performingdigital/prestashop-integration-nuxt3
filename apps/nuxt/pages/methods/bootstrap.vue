@@ -11,7 +11,7 @@
   <script lang="ts" setup>
   import { sdk } from '~/sdk.config';
   
-  const res = useState<object|string>('waiting to call...');
+  const res = useState('waiting to call...');
   
   async function callEndpoint() {
     res.value = await sdk.prestashop.bootstrap({

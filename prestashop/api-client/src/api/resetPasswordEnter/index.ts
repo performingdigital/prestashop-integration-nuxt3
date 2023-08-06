@@ -1,17 +1,20 @@
-import { Context } from '../../types';
-import { 
-  TODO as ResetPasswordEmailResponse, 
-  TODO as ResetPasswordEmailRequest 
-} from '@vue-storefront/prestashop-types';
+import { Context, PrestashopResponse } from '../../types';
 
-export default async function sendResetPasswordEmail(
+export type ResetPasswordEnterRequest = {
+  email: string;
+  'pass-code': string;
+  passwd: string;
+  confirmation: string;
+};
+
+export type ResetPasswordEnterResponse = PrestashopResponse<string[]>;
+
+export default async function resetPasswordEnter(
   context: Context,
-  params: ResetPasswordEmailRequest
-): Promise<ResetPasswordEmailResponse> {
-  const { data } = await context.client.post<ResetPasswordEmailResponse>('/rest/resetpasswordenter', {
-    email: params.username,
-    'pass-code': params.code,
-    password: params.password,
+  params: ResetPasswordEnterRequest
+): Promise<ResetPasswordEnterResponse> {
+  const { data } = await context.client.post<ResetPasswordEnterResponse>('/rest/resetpasswordenter', {
+    ...params,
   });
 
   return data;

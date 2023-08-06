@@ -1,14 +1,15 @@
-import { cookieParser } from '../../helpers/cookieParser';
+import { Context, PrestashopResponse } from '../../types';
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export default async function getShippingMethods(context, params) {
-  const url = new URL(context.config.api.url + params.lang + '/rest/carriers');
-  url.searchParams.set('iso_currency', params.currency);
-  const { data, headers } = await context.client.get(url.href, {
-    headers: {
-      Cookie: params.psCookieKey + '=' + params.psCookieValue + ';'
-    }
-  });
-  const cookieObject = cookieParser(headers);
-  return {data, cookieObject};
+export type CarrierRequest = {
+  // empty
+};
+
+export type CarrierResponse = PrestashopResponse<{
+  // TODO: add types
+}>;
+
+export async function fetchOrders(context: Context, params: CarrierRequest) {
+  const { data } = await context.client.get<CarrierResponse>('/rest/carriers');
+
+  return data;
 }

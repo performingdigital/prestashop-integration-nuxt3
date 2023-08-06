@@ -22,7 +22,7 @@ const onCreate = (
     config.state.getPsCookieKey(),
     config.state.getPsCookieValue(),
     config.state.getCurrency(),
-    config.state.getLocale(),
+    config.state.getLocale()
   ]);
 
   const client = axios.create({
@@ -77,7 +77,7 @@ const tokenExtension: ApiClientExtension = {
         state: {
           getPsCookieKey: () => {
             try {
-              return JSON.parse(req.cookies[psCookieKey] ?? 'null');
+              return JSON.parse(req.cookies[psCookieKey]);
             } catch {
               return null;
             }
@@ -91,7 +91,7 @@ const tokenExtension: ApiClientExtension = {
           },
           getPsCookieValue: () => {
             try {
-              return JSON.parse(req.cookies[psCookieValue] ?? 'null');
+              return JSON.parse(req.cookies[psCookieValue]);
             } catch {
               return null;
             }
@@ -105,9 +105,9 @@ const tokenExtension: ApiClientExtension = {
           },
           getCurrency: () => {
             try {
-              return JSON.parse(req.cookies[currencyCookieName] ?? 'null') ?? 'EUR';
+              return JSON.parse(req.cookies[currencyCookieName]);
             } catch {
-              return null;
+              return 'EUR';
             }
           },
           setCurrency: (id) => {
@@ -119,9 +119,9 @@ const tokenExtension: ApiClientExtension = {
           },
           getLocale: () => {
             try {
-              return JSON.parse(req.cookies[localeCookieName] ?? 'null') ?? 'en';
+              return JSON.parse(req.cookies[localeCookieName]);
             } catch {
-              return null;
+              return 'en';
             }
           },
           setLocale: (id) => {
@@ -137,9 +137,11 @@ const tokenExtension: ApiClientExtension = {
   }),
 };
 
+console.log(apiEndpoints);
+
 const { createApiClient } = apiClientFactory<any, any>({
   onCreate,
-  api: apiEndpoints,
+  api: { ...apiEndpoints },
   extensions: [tokenExtension],
 });
 

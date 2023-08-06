@@ -1,19 +1,18 @@
-import { Context } from '../../types';
+import { Context, PrestashopResponse } from '../../types';
 
-import {
-  TODO as CartRequest,
-  TODO as CartResponse,
-} from '@vue-storefront/prestashop-types';
+export type CartRequest = {
+  image_size: 'medium_default'
+}
 
-export default async function getCartItems(
+export type CartResponse = PrestashopResponse<{}>
+
+export async function getCartItems(
   context: Context,
-  params: CartRequest
+  params: CartRequest = { image_size: 'medium_default' }
 ): Promise<CartResponse> {
+  
   const { data } = await context.client.get<CartResponse>(`/rest/cart`, {
-    params: {
-      ...params,
-      image_size: 'medium_default',
-    },
+    params
   });
 
   return data;

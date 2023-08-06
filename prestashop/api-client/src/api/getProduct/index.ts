@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export default async function getProduct(context, params) {
+export async function getProduct(context, params) {
   if (params.id) {
     const url = new URL(context.config.api.url + params.lang + '/rest/productdetail');
     url.searchParams.set('iso_currency', params.currency);

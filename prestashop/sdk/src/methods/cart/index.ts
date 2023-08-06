@@ -1,28 +1,26 @@
 import { client } from '../../client';
 import {
-  TODO as CartRequest,
-  TODO as CartResponse,
+  GetCartRequest,
+  GetCartResponse,
   UpdateCartRequest,
   UpdateCartResponse,
-} from '@vue-storefront/prestashop-types';
+} from '@vue-storefront/prestashop-api';
 
-export async function getCartItems(props: CartRequest = {}) {
-  const { data } = await client.post<CartResponse>('getCartItems', props);
+export async function cartGet(props: GetCartRequest|null = null) {
+  const { data } = await client.post<GetCartResponse>('getCartItems', props);
 
   if (!data.success) {
-    return null;
+    return data;
   }
 
   return data;
 }
 
-export async function updateCart(
-  props: UpdateCartRequest
-): Promise<UpdateCartResponse> {
+export async function cartUpdate(props: UpdateCartRequest){
   const { data } = await client.post<UpdateCartResponse>('updateCart', props);
 
   if (!data.success) {
-    return null;
+    return data;
   }
 
   return data;
